@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import ClassCounter from "./components/ClassCounter";
 import Counter from "./components/Counter";
+import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
+import MyButton from "./components/UI/button/MyButton";
+import MyInput from "./components/UI/input/MuInput";
 import "./styles/App.css";
 
 function App() {
@@ -10,16 +13,19 @@ function App() {
     { id: 2, title: "Javascript 1", body: "Description" },
     { id: 3, title: "Javascript 2", body: "Description" },
   ]);
-  const [posts2, setPosts2] = useState([
-    { id: 1, title: "Python", body: "Description" },
-    { id: 2, title: "Python 1", body: "Description" },
-    { id: 3, title: "Python 2", body: "Description" },
-  ]);
+
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost]);
+  };
+
+  const removePost = (post) => {
+    setPosts(posts.filter((p) => p.id !== post.id));
+  };
 
   return (
     <div className="App">
-      <PostList posts={posts} title='Посты про JS'/>
-      <PostList posts={posts2} title='Посты про Python'/>
+      <PostForm create={createPost} />
+      <PostList remove={removePost} posts={posts} title="Посты про JS" />
     </div>
   );
 }
