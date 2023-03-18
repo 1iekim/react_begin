@@ -33,6 +33,18 @@ const PostIdPage = () => {
         </div>
       )}
       <h2>Комментарии</h2>
+      {
+        isComLoading ? (
+            <Loader/>
+        ) : (
+            <div>
+                {comments.map(comment => <div style={{marginTop: 15}}>
+                    <h5>{comment.email}</h5>
+                    <div>{comment.body}</div>
+                </div>)}
+            </div>
+        )
+      }
     </div>
   );
 };
