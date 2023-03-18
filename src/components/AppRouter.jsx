@@ -4,12 +4,23 @@ import About from "../pages/About";
 import ErrorPage from "../pages/ErrorPage";
 import PostIdPage from "../pages/PostIdPage";
 import Posts from "../pages/Posts";
-import { router } from "../router";
+import { privateRoutes, publicRoutes } from "../router";
 
 const AppRouter = () => {
-  return (
+  const isAuth = true;
+  return isAuth ? (
     <Routes>
-      {router.map((route) => (
+      {privateRoutes.map((route) => (
+        <Route
+          path={route.path}
+          element={route.component}
+          exact={route.exact}
+        />
+      ))}
+    </Routes>
+  ) : (
+    <Routes>
+      {publicRoutes.map((route) => (
         <Route
           path={route.path}
           element={route.component}
